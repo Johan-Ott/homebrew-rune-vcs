@@ -1,19 +1,25 @@
 class RuneVcs < Formula
-  desc "Rune VCS - Modern, scalable version control system with virtual workspaces and draft commits"
-  homepage "https://github.com/CaptainOtto/rune-vcs"
-  url "https://github.com/CaptainOtto/rune-vcs/archive/refs/tags/v0.3.0-alpha.2.tar.gz"
-  sha256 "a045ddc24d4a3166adffb159e9ba6022e723f92293f9e0f3939727c5df810d0a"
+  desc "Modern, intelligent version control system with virtual workspaces and draft commits"
+  homepage "https://github.com/Johan-Ott/rune-vcs"
+  url "https://github.com/Johan-Ott/rune-vcs/releases/download/v0.3.0-alpha.4/rune-0.3.0-alpha.4-x86_64-apple-darwin.tar.gz"
+  sha256 "02a35b8277bcb52872c65b38709ba0aba5bc59dcbadf1a9693c61d2b71a55fd8"
   license "Apache-2.0"
-  version "0.3.0-alpha.2"
+  version "0.3.0-alpha.4"
 
-  depends_on "rust" => :build
+  on_arm do
+    url "https://github.com/Johan-Ott/rune-vcs/releases/download/v0.3.0-alpha.4/rune-0.3.0-alpha.4-aarch64-apple-darwin.tar.gz"
+    sha256 "402c9e99320e4452d9ddaa5aff6b8a2134fef31e3649d0cfd3caa807534ef0bd"
+  end
 
   def install
-    system "cargo", "install", *std_cargo_args
+    bin.install "rune"
   end
 
   test do
-    system bin/"rune", "--version"
-    assert_match "rune #{version}", shell_output("#{bin}/rune --version")
+    # Test basic version command
+    assert_match version.to_s, shell_output("#{bin}/rune --version")
+    
+    # Test that the doctor command works
+    system "#{bin}/rune", "doctor"
   end
 end
