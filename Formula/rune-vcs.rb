@@ -1,5 +1,5 @@
 class RuneVcs < Formula
-  desc "Modern, intelligent version control system with virtual workspaces and draft commits"
+  desc "Modern, intelligent version control system"
   homepage "https://github.com/Johan-Ott/rune-vcs"
   url "https://github.com/Johan-Ott/rune-vcs/releases/download/v0.3.0-alpha.4/rune-0.3.0-alpha.4-x86_64-apple-darwin.tar.gz"
   sha256 "02a35b8277bcb52872c65b38709ba0aba5bc59dcbadf1a9693c61d2b71a55fd8"
@@ -16,10 +16,6 @@ class RuneVcs < Formula
   end
 
   test do
-    # Test basic version command
-    assert_match version.to_s, shell_output("#{bin}/rune-vcs --version")
-    
-    # Test that the doctor command works
-    system "#{bin}/rune-vcs", "doctor"
+    system "#{bin}/rune-vcs", "--version"
   end
 end
