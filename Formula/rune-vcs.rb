@@ -1,16 +1,19 @@
 class RuneVcs < Formula
-  desc "Rune VCS - Modern, scalable version control system"
-  homepage "https://github.com/Johan-Ott/rune-vcs"
-  url "https://github.com/Johan-Ott/rune-vcs/releases/download/v0.2.5/rune-v0.2.5-aarch64-apple-darwin.tar.gz"
-  sha256 "d6e8d3fabb4e926507ba08db4f147645527afcc77e2edbda9d6f28e220433253" 
-  license "MIT"
-  version "0.2.5"
+  desc "Rune VCS - Modern, scalable version control system with virtual workspaces and draft commits"
+  homepage "https://github.com/CaptainOtto/rune-vcs"
+  url "https://github.com/CaptainOtto/rune-vcs/archive/refs/tags/v0.3.0-alpha.2.tar.gz"
+  sha256 "a045ddc24d4a3166adffb159e9ba6022e723f92293f9e0f3939727c5df810d0a"
+  license "Apache-2.0"
+  version "0.3.0-alpha.2"
+
+  depends_on "rust" => :build
 
   def install
-    bin.install "rune" => "rune-vcs"
+    system "cargo", "install", *std_cargo_args
   end
 
   test do
-    system "#{bin}/rune-vcs", "--version"
+    system bin/"rune", "--version"
+    assert_match "rune #{version}", shell_output("#{bin}/rune --version")
   end
 end
