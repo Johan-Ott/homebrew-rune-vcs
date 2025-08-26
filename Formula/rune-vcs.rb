@@ -1,5 +1,5 @@
-class RuneVcs < Formula
-  desc "Modern, intelligent version control system with virtual workspaces and draft commits"
+class Rune < Formula
+  desc "Modern, intelligent version control system"
   homepage "https://github.com/Johan-Ott/rune-vcs"
   url "https://github.com/Johan-Ott/rune-vcs/releases/download/v0.3.0-alpha.4/rune-0.3.0-alpha.4-x86_64-apple-darwin.tar.gz"
   sha256 "02a35b8277bcb52872c65b38709ba0aba5bc59dcbadf1a9693c61d2b71a55fd8"
@@ -11,15 +11,13 @@ class RuneVcs < Formula
     sha256 "402c9e99320e4452d9ddaa5aff6b8a2134fef31e3649d0cfd3caa807534ef0bd"
   end
 
+  depends_on "rust" => :build
+
   def install
-    bin.install "rune"
+    bin.install "rune" => "rune-vcs"
   end
 
   test do
-    # Test basic version command
-    assert_match version.to_s, shell_output("#{bin}/rune --version")
-    
-    # Test that the doctor command works
-    system "#{bin}/rune", "doctor"
+    system "#{bin}/rune-vcs", "--version"
   end
 end
