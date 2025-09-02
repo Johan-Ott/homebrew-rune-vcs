@@ -1,13 +1,22 @@
 class RuneVcs < Formula
   desc "Modern, intelligent version control system"
   homepage "https://github.com/Johan-Ott/rune-vcs"
-  url "https://github.com/Johan-Ott/rune-vcs/releases/download/v0.3.2-alpha.6/rune-0.3.2-alpha.6-aarch64-apple-darwin.tar.gz"
-  sha256 "287ca9250b499f7aac37b1f866136e7663bd66e26b708bd751fa56363b114377"
   license "Apache-2.0"
-  version "0.3.2-alpha.6"
+  version "0.3.3-alpha.1"
 
-  # Currently only supports Apple Silicon Macs due to build constraints
-  depends_on arch: :arm64
+  on_macos do
+    if Hardware::CPU.arm?
+      url "https://github.com/Johan-Ott/rune-vcs/releases/download/v0.3.3-alpha.1/rune-0.3.3-alpha.1-aarch64-apple-darwin.tar.gz"
+      sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
+    end
+
+    if Hardware::CPU.intel?
+      url "https://github.com/Johan-Ott/rune-vcs/releases/download/v0.3.3-alpha.1/rune-0.3.3-alpha.1-x86_64-apple-darwin.tar.gz"
+      sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
+    end
+  end
+
+  depends_on "git"
 
   def install
     bin.install "rune" => "rune-vcs"
